@@ -1,6 +1,6 @@
 export default function calculateWinner(squares) {
   if (!squares.includes(null)) {
-    return true;
+    return 'Match Drawn!';
   }
 
   const lines = [

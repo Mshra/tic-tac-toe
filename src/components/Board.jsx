@@ -17,6 +17,9 @@ export default function Board() {
   let status;
   if (winner) {
     status = 'Winner: ' + winner;
+    if (winner === 'Match Drawn!') {
+      status = winner;
+    }
   } else {
     status = 'Next player: ' + (xIsNext ? 'X' : 'O');
   }
@@ -34,8 +37,14 @@ export default function Board() {
     setXIsNext(!xIsNext);
   }
 
+  function handleReset() {
+    setSquares(Array(9).fill(null));
+    setXIsNext(true);
+  }
+
   return (
     <div className="flex-col items-center">
+      <div className="flex justify-center border-2 border-black font-Roboto italic font-bold text-white text-xl mb-8 p-3 bg-cyan-500">{status}</div>
       <div className="grid grid-cols-3 grid-rows-3">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
         <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
@@ -47,7 +56,9 @@ export default function Board() {
         <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
         <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
       </div>
-      <div className="flex justify-center border-2 border-black font-Roboto italic font-bold text-white text-xl mt-8 p-5 bg-cyan-500">{status}</div>
+      <div className="flex justify-center">
+        <button className='border-2 border-black font-Roboto text-white text-xs mt-5 p-3 bg-red-400' onClick={handleReset} >Reset</button>
+      </div>
     </div>
   )
 }
